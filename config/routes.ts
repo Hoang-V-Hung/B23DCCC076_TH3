@@ -1,4 +1,10 @@
-﻿export default [
+import component from "@/locales/en-US/component";
+import Icon from "@ant-design/icons";
+import { icons } from "antd/lib/image/PreviewGroup";
+import route from "mock/route";
+import path from "path";
+
+export default [
 	{
 		path: '/user',
 		layout: false,
@@ -35,6 +41,104 @@
 		name: 'RandomUser',
 		component: './RandomUser',
 		icon: 'ArrowsAltOutlined',
+	},
+	{
+		path: '/todolist',
+		name: 'Todolist',
+		component: './Todolist',
+		icon: 'FormOutlined',
+	},
+	{
+		path: '/game',
+		name: 'Game',
+		component: './Game',
+		icon: 'PlayCircleOutlined',
+	},
+	{
+		path: '/app',
+		name: 'App',
+		icon: 'AppstoreOutlined',
+		routes: [
+			{
+				path: 'quanlydanhmucmonhoc',
+				name: 'Quản lý danh mục môn học',
+				// exact: true,
+				component: './App/quanlydanhmucmonhoc/quanlydanhmucmonhoc',
+			},
+			{
+				path: 'quanlytiendohoctap',
+				name: 'Quản lý tiến độ học tập',
+				// exact: true,
+				component: './App/quanlytiendohoctap/quanlytiendohoctap',
+			},
+			{
+				path: 'thietlapmuctieuhoctap',
+				name: 'Thiết lập mục tiêu học tập',
+				// exact: true,
+				component: './App/thietlapmuctieuhoctap/thietlapmuctieuhoctap',
+			},
+		],
+	},
+	{
+		path: '/rps',
+		name: 'Rock Paper Scissors',
+		component: './RockPaperScissors',
+		icon:'RocketOutlined'
+	},
+	{
+		path: '/quanlycauhoi',
+		name: 'Quản lý Câu Hỏi Tự Luận',
+		Icon: 'QuestionCircleOutlined',
+		routes: [
+			{
+				path: 'quanlymonhoc',
+				name: 'Quản lý môn học',
+				component:'./QuanLyCauHoiTuLuan/QuanLyMonHoc/QuanLyMonHoc',
+			},
+			{
+				path: 'quanlycauhoi',
+				name: 'Quản lý câu hỏi',
+				component: './QuanLyCauHoiTuLuan/QuanLyCauHoi/QuanLyCauHoi',
+			},
+			{
+				path: 'quanlydethi',
+				name: 'Quản lý đề thi',
+				component: './QuanLyCauHoiTuLuan/QuanLyDeThi/QuanLyDeThi',
+			},
+		],
+	},
+	{
+		path: '/appoint-mate',
+		name: 'AppointMate',
+		routes: [
+			{
+				path: 'lich-hen',
+				name: 'Lịch hẹn',
+				component: './AppointMate/Appointments/Appointments',
+			},
+			{
+				path: 'nhan-vien',
+				name: 'Nhân viên',
+				component: './AppointMate/Employees/Employees',
+			},
+			{
+				path:'dich-vu',
+				name:'Dịch vụ',
+				component:'./AppointMate/Services/Services',
+			},
+			{
+				path:'danh-gia',
+				name:'Đánh giá',
+				component:'./AppointMate/Reviews/Reviews',
+			},
+			{
+				path: 'thong-ke',
+				name: 'Thống kê',
+				component: './AppointMate/Reports/Reports',
+			}
+		],
+		icon:'CarryOutOutlined'
+		// icon: 'ArrowsAltOutlined',
 	},
 
 	// DANH MUC HE THONG
