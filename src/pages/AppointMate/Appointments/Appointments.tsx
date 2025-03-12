@@ -47,7 +47,7 @@ const Appointments: React.FC = () => {
     localStorage.setItem("appointments", JSON.stringify(appointments));
   }, [appointments]);
 
-  // ✅ Hàm kiểm tra trùng lịch hẹn
+  // ✅ Kiểm tra lịch hẹn trùng nhau
   const isDuplicateAppointment = (newAppointment: Appointment) => {
     return appointments.some(
       (appt) =>
@@ -58,10 +58,10 @@ const Appointments: React.FC = () => {
     );
   };
 
-  // ✅ Hàm kiểm tra số lượng lịch hẹn tối đa trong ngày
+  // ✅ Kiểm tra số lượng lịch hẹn/ngày của nhân viên
   const isExceedingDailyLimit = (newAppointment: Appointment) => {
     const staffInfo = employees.find((emp) => emp.name === newAppointment.staff);
-    if (!staffInfo) return false;
+    if (!staffInfo) return false; // Nếu nhân viên không tồn tại
 
     const dailyAppointments = appointments.filter(
       (appt) => appt.date === newAppointment.date && appt.staff === newAppointment.staff
@@ -70,7 +70,7 @@ const Appointments: React.FC = () => {
     return dailyAppointments.length >= staffInfo.maxAppointmentsPerDay;
   };
 
-  // ✅ Hàm xử lý thêm hoặc cập nhật lịch hẹn
+  // ✅ Xử lý thêm hoặc cập nhật lịch hẹn
   const handleAddOrUpdateAppointment = (values: any) => {
     if (!values.date || !values.time || !values.staff || !values.service) {
       message.error("Vui lòng chọn đầy đủ thông tin!");
@@ -86,13 +86,13 @@ const Appointments: React.FC = () => {
       status: "Chờ duyệt",
     };
 
-    // Kiểm tra trùng lịch
+    // 🔥 Kiểm tra trùng lịch
     if (isDuplicateAppointment(formattedAppointment)) {
       message.error("Nhân viên đã có lịch hẹn vào thời gian này, vui lòng chọn thời gian khác!");
       return;
     }
 
-    // Kiểm tra số lượng lịch hẹn tối đa/ngày
+    // 🔥 Kiểm tra giới hạn lịch hẹn/ngày của nhân viên
     if (isExceedingDailyLimit(formattedAppointment)) {
       message.error("Nhân viên đã đạt số lượng lịch hẹn tối đa trong ngày!");
       return;
@@ -113,7 +113,7 @@ const Appointments: React.FC = () => {
     form.resetFields();
   };
 
-  // Hàm sửa lịch hẹn
+  // Hàm chỉnh sửa lịch hẹn
   const handleEdit = (record: Appointment) => {
     form.setFieldsValue({
       date: dayjs(record.date),
@@ -149,7 +149,7 @@ const Appointments: React.FC = () => {
             {employees.length > 0 ? (
               employees.map((emp) => (
                 <Select.Option key={emp.id} value={emp.name}>
-                  {emp.name}
+                  {emp.name} (Tối đa: {emp.maxAppointmentsPerDay} lịch/ngày)
                 </Select.Option>
               ))
             ) : (
